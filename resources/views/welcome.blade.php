@@ -15,12 +15,27 @@
       </button>
       <div class="collapse navbar-collapse text-center justify-content-center" id="navbar3">
         <ul class="navbar-nav">
-          <li class="nav-item mx-2"> <a class="nav-link" href="#">Products</a> </li>
-          <li class="nav-item mx-2"> <a class="nav-link" href="#">FAQ</a> </li>
+          <li class="nav-item dropdown"> 
+			  <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Movies</a> 
+			  <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
+				  <a class="dropdown-item" href="/movies">
+						All
+					</a>
+
+					<a class="dropdown-item" href="/movies/genres">
+						Genres
+					</a>
+
+					<a class="dropdown-item" href="/movies?popular=1">
+						Popular
+					</a>
+					</div>
+			  </li>
+          <li class="nav-item mx-2"> <a class="nav-link" href="#">Actors</a> </li>
           <li class="nav-item mx-2"> <a class="nav-link navbar-brand mr-0 text-primary" href="#"><i class="fas fa-film"></i>
               <b> MovieDB</b></a> </li>
-          <li class="nav-item mx-2"> <a class="nav-link" href="#">About us</a> </li>
-          <li class="nav-item mx-2"> <a class="nav-link" href="#">Contacts </a> </li>
+          <li class="nav-item mx-2"> <a class="nav-link" href="#">Directors</a> </li>
+          <li class="nav-item mx-2"> <a class="nav-link" href="#">About us </a> </li>
         </ul>
       </div>
     </div>

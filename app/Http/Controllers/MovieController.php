@@ -35,6 +35,10 @@ class MovieController extends Controller
 		return view('welcome', compact('movies'));
     }
 
+	public function all() {
+		$movies = Movie::orderBy('title', 'asc')->get();
+		return view('movies.index', compact('movies'));
+	}
     /**
      * Show the form for creating a new resource.
      *
