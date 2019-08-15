@@ -16,7 +16,7 @@ class MovieController extends Controller
     public function index()
     {
 		$movies = Movie::with('awards')->get();
-		
+
 		foreach($movies as $movie) {
 			foreach($movie->awards as $award) {
 				if($award->NumWinOscars > 0)
