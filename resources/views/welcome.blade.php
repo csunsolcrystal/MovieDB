@@ -58,11 +58,14 @@
     <div class="" style="">
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
-            <h3 class="py-3 text-center">Featured Film of the Week</h3><img class="img-fluid d-block align-items-center mx-auto" style="width: 200px;" src="https://static.pingendo.com/img-placeholder-1.svg">
-            <p class="py-2 px-2">Remain valley who mrs uneasy remove wooded him you. Her questions favourite him concealed. We to wife face took he. The taste begin early old why since dried can first. Prepared as or humoured formerly. Evil mrs true get post. Express village evening prudent my as ye hundred forming. Thoughts she why not directly reserved packages you. Winter an silent favour of am tended mutual. </p>
-            <hr class="shadow-sm">
-          </div>
+          <div class="col-md-6 border-bottom">
+              <h3 class="py-3 text-center">Featured Film</h3>
+              <div class="col d-inline-flex">
+                <img class="d-block img-fluid align-items-center" style="width: 200px;" src="https://static.pingendo.com/img-placeholder-1.svg">
+                <p class="ml-2 mt-3" style="">Title <br>Genre <br>Director <br>Actors <br>Rating<br>
+                  <br>Remain valley who mrs uneasy remove wooded him you. Her questions favourite him concealed. We to wife face took he. The taste begin early old why since dried can first. Prepared as or humoured formerly. Evil mrs true get post. Express village evening prudent my as ye hundred forming. Thoughts she why not directly reserved packages you. Winter an silent favour of am tended mutual.</p>
+              </div>
+            </div>
           <div class="border-left col-md-6 col-lg-6">
             <div class="row">
               <div class="col-md-12 text-center">
@@ -127,7 +130,14 @@
             </div>
             <hr class="shadow-sm">
           </div>
-          <div class="col-md-6 col-lg-6"></div>
+          <div class="col-md-6 col-lg-6">
+            <h3 class="text-center mt-2" >Featured Actor / Actress</h3>
+            <div class="col d-inline-flex">
+              <img class="d-block img-fluid align-items-center" style="width: 200px;" src="https://static.pingendo.com/img-placeholder-1.svg">
+              <p class="ml-2 mt-3" style="">Name <br>Age <br>Known for <br><br>Biography<br>
+                <br>Remain valley who mrs uneasy remove wooded him you. Her questions favourite him concealed. We to wife face took he. The taste begin early old why since dried can first. Prepared as or humoured formerly. Evil mrs true get post. Express village evening prudent my as ye hundred forming. Thoughts she why not directly reserved packages you. Winter an silent favour of am tended mutual.</p>
+            </div>
+          </div>
           <div class="col-md-6 border-left mb-2">
             <div class="row">
               <div class="col-md-12 text-center">
