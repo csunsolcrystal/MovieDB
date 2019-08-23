@@ -62,7 +62,9 @@
               <h3 class="py-3 text-center">Featured Film</h3>
               <div class="col d-inline-flex">
                 <img class="d-block img-fluid align-items-center" style="width: 200px;" src="https://static.pingendo.com/img-placeholder-1.svg">
-                <p class="ml-2 mt-3" style="">Title <br>Genre <br>Director <br>Actors <br>Rating<br>
+                <p class="ml-2 mt-3" style="">{{ $randomMovie->Title }} <br>Released: {{ $randomMovie->YearReleased }} <br>Genres: {{ $randomMovie->Genre }} <br>Director: @foreach($randomMovie->directors as $director) {{ $director->DirectorName }} @endforeach
+                @if(sizeof($randomMovie->actors) > 0)
+                <br>{{ str_plural('Star', sizeof($randomMovie->actors)) }}: @foreach($randomMovie->actors as $actor) @if ($loop->last) {{ $actor->Name }} @else {{ $actor->Name }}, @endif @endforeach @endif <br>Rating: {{ $randomMovie->Rating }} / 10<br>
                   <br>Remain valley who mrs uneasy remove wooded him you. Her questions favourite him concealed. We to wife face took he. The taste begin early old why since dried can first. Prepared as or humoured formerly. Evil mrs true get post. Express village evening prudent my as ye hundred forming. Thoughts she why not directly reserved packages you. Winter an silent favour of am tended mutual.</p>
               </div>
             </div>
@@ -134,7 +136,7 @@
             <h3 class="text-center mt-2" >Featured Actor / Actress</h3>
             <div class="col d-inline-flex">
               <img class="d-block img-fluid align-items-center" style="width: 200px;" src="https://static.pingendo.com/img-placeholder-1.svg">
-              <p class="ml-2 mt-3" style="">Name <br>Age <br>Known for <br><br>Biography<br>
+              <p class="ml-2 mt-3" style="">{{ $randomActor->Name }} <br>Born:&nbsp;{{ $randomActor->ActorDOB }} <br>Known for: @foreach ($randomActor->movies as $movie) @if ($loop->last) {{ $movie->Title }} @else {{ $movie->Title }}, @endif @endforeach <br><br>Biography<br>
                 <br>Remain valley who mrs uneasy remove wooded him you. Her questions favourite him concealed. We to wife face took he. The taste begin early old why since dried can first. Prepared as or humoured formerly. Evil mrs true get post. Express village evening prudent my as ye hundred forming. Thoughts she why not directly reserved packages you. Winter an silent favour of am tended mutual.</p>
             </div>
           </div>
@@ -152,6 +154,7 @@
                   <div class="col-9 p-2">
                     <p class="lead mb-1"> <b>#{{$loop->iteration }}</b> </p>
                     <p class="mb-0">{{ $movie->Title }}</p>
+                    <p class="mb-0">Released: {{ $movie->YearReleased }}</p>
       			        <p class="mb-0">Genres: {{ $movie->Genre }}</p>
       			        <p class="mb-0">Director: @foreach($movie->directors as $director) {{ $director->DirectorName }} @endforeach</p>
       			        @if(sizeof($movie->actors) > 0)

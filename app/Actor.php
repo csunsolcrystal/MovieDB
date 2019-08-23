@@ -9,9 +9,9 @@ class Actor extends Model
 {
 	protected $table = 'actors';
     protected $primaryKey = 'id';
-	
+
     public function movies() {
-		
-    return $this->belongsToMany('App\Movie', 'actor_movies', 'MovieID', 'actorID');
+
+			return $this->belongsToMany('App\Movie', 'actor_movies', 'actorID', 'MovieID');
 	}
 }

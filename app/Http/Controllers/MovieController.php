@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Movie;
+use App\Actor;
 use App\Director;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class MovieController extends Controller
     public function index()
     {
 		$movies = Movie::with('awards')->get();
+    $actors = Actor::with('movies')->get();
 
 		foreach($movies as $movie) {
 			foreach($movie->awards as $award) {
@@ -31,8 +33,27 @@ class MovieController extends Controller
 		}
 	}
 });
+
+// get random Movie & random actor
+if(sizeof($movies) > 0) {
+$randomNumber = rand(0, sizeof($movies)-1);
+$randomNumber2 = rand(0, sizeof($actors)-1);
+
+$randomMovie = $movies->get($randomNumber);
+$randomActor = $actors->get($randomNumber2);
+}
 	$movies = array_slice($newmovies, 0, 6);
-		return view('welcome', compact('movies'));
+
+  if(sizeof($movies) > 0)
+  return view('welcome', [
+	'movies' => $movies,
+	'randomMovie' => $randomMovie,
+  'randomActor' => $randomActor,
+	]);
+  else
+    return view('welcome', [
+  	'movies' => $movies,
+  	]);
     }
 
 	public function all() {
