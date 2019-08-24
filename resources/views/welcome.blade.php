@@ -44,10 +44,10 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h2 class="mb-3">What movie you looking for?</h2>
+            <h2 class="mb-3">What are you looking for?</h2>
             <form class="form-inline d-inline-flex">
               <div class="input-group">
-                <input type="text" class="form-control pr-5" id="inlineFormInputGroup" placeholder="Search">
+                <input type="text" style="width: 450px;" class="form-control pr-5" id="inlineFormInputGroup" placeholder="Search">
                 <div class="input-group-append"><button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button></div>
               </div>
             </form>
@@ -61,11 +61,11 @@
           <div class="col-md-6 border-bottom">
               <h3 class="py-3 text-center">Featured Film</h3>
               <div class="col d-inline-flex">
-                <img class="d-block img-fluid align-items-center" style="width: 200px;" src="https://static.pingendo.com/img-placeholder-1.svg">
+                <img class="d-block img-fluid align-items-center" style="width: 200px; height: 100%;" src="https://image.tmdb.org/t/p/w500{{ $randomMoviePoster }}">
                 <p class="ml-2 mt-3" style="">{{ $randomMovie->Title }} <br>Released: {{ $randomMovie->YearReleased }} <br>Genres: {{ $randomMovie->Genre }} <br>Director: @foreach($randomMovie->directors as $director) {{ $director->DirectorName }} @endforeach
                 @if(sizeof($randomMovie->actors) > 0)
                 <br>{{ str_plural('Star', sizeof($randomMovie->actors)) }}: @foreach($randomMovie->actors as $actor) @if ($loop->last) {{ $actor->Name }} @else {{ $actor->Name }}, @endif @endforeach @endif <br>Rating: {{ $randomMovie->Rating }} / 10<br>
-                  <br>Remain valley who mrs uneasy remove wooded him you. Her questions favourite him concealed. We to wife face took he. The taste begin early old why since dried can first. Prepared as or humoured formerly. Evil mrs true get post. Express village evening prudent my as ye hundred forming. Thoughts she why not directly reserved packages you. Winter an silent favour of am tended mutual.</p>
+                  <br>{{ $summary }}</p>
               </div>
             </div>
           <div class="border-left col-md-6 col-lg-6">
@@ -133,11 +133,12 @@
             <hr class="shadow-sm">
           </div>
           <div class="col-md-6 col-lg-6">
-            <h3 class="text-center mt-2" >Featured Actor / Actress</h3>
+            <h3 class="text-center mt-2 mb-2" >Featured Actor / Actress</h3>
             <div class="col d-inline-flex">
-              <img class="d-block img-fluid align-items-center" style="width: 200px;" src="https://static.pingendo.com/img-placeholder-1.svg">
-              <p class="ml-2 mt-3" style="">{{ $randomActor->Name }} <br>Born:&nbsp;{{ $randomActor->ActorDOB }} <br>Known for: @foreach ($randomActor->movies as $movie) @if ($loop->last) {{ $movie->Title }} @else {{ $movie->Title }}, @endif @endforeach <br><br>Biography<br>
-                <br>Remain valley who mrs uneasy remove wooded him you. Her questions favourite him concealed. We to wife face took he. The taste begin early old why since dried can first. Prepared as or humoured formerly. Evil mrs true get post. Express village evening prudent my as ye hundred forming. Thoughts she why not directly reserved packages you. Winter an silent favour of am tended mutual.</p>
+              <img class="d-block img-fluid align-items-center" style="margin-top: 2ex; width: 200px; height: 100%;" src="https://image.tmdb.org/t/p/w500{{ $personImage }}">
+              <p class="ml-2 mt-3" style="">{{ $randomActor->Name }} <br>Born:&nbsp;{{ $randomActor->ActorDOB }}
+                <br>Known for: @foreach ($randomActor->movies as $movie) @if ($loop->last) {{ $movie->Title }} ({{ $movie->YearReleased }}) @else {{ $movie->Title }} ({{ $movie->YearReleased }}), @endif @endforeach <br>
+                <br>{{ $personBio }}</p>
             </div>
           </div>
           <div class="col-md-6 border-left mb-2">
@@ -150,7 +151,7 @@
                @foreach($movies as $movie)
               <div class="col-md-6 col-lg-7">
                 <div class="row">
-                  <div class="col-3 d-flex align-items-center p-0"> <img class="d-block img-fluid" src="https://static.pingendo.com/img-placeholder-1.svg"> </div>
+                  <div class="col-3 d-flex align-items-center p-0"> <img class="d-block img-fluid" src="https://image.tmdb.org/t/p/w500{{ $posterImages[$movie->Title] }}"> </div>
                   <div class="col-9 p-2">
                     <p class="lead mb-1"> <b>#{{$loop->iteration }}</b> </p>
                     <p class="mb-0">{{ $movie->Title }}</p>

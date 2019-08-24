@@ -42,13 +42,53 @@ $randomNumber2 = rand(0, sizeof($actors)-1);
 $randomMovie = $movies->get($randomNumber);
 $randomActor = $actors->get($randomNumber2);
 }
+
 	$movies = array_slice($newmovies, 0, 6);
+
+  // get poster images for Movies
+  //https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=the+godfather
+
+  // store image urls into a key-pair for each top movie
+
+  foreach ($movies as $movie) {
+      $url = "https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" . urlencode($movie->Title) . "";
+  		$data = file_get_contents($url);
+  		$posterUrls = json_decode($data, true);
+      $posterUrls = $posterUrls['results'][0]['poster_path'];
+      $posterImages[$movie->Title] = $posterUrls;
+  }
+      // get random movie info
+      $url = "https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" . urlencode($randomMovie->Title) . "";
+  		$data = file_get_contents($url);
+  		$data = json_decode($data, true);
+      $posterUrls = $data['results'][0]['poster_path'];
+      $summary = $data['results'][0]['overview'];
+      $randomMoviePoster = $posterUrls;
+
+
+      // get basic random person info
+      $personUrl = "https://api.themoviedb.org/3/search/person?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&language=en-US&page=1&include_adult=false&query=" . urlencode($randomActor->Name) . "";
+      $data = file_get_contents($personUrl);
+      $data = json_decode($data, true);
+      $personImage = $data['results'][0]['profile_path'];
+      $personId = $data['results'][0]['id'];
+
+      $detailedUrl = "https://api.themoviedb.org/3/person/". $personId ."?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&language=en-US";
+      $data = file_get_contents($detailedUrl);
+      $data = json_decode($data, true);
+      $personBio = $data['biography'];
+
 
   if(sizeof($movies) > 0)
   return view('welcome', [
 	'movies' => $movies,
 	'randomMovie' => $randomMovie,
   'randomActor' => $randomActor,
+  'posterImages' => $posterImages,
+  'randomMoviePoster' => $randomMoviePoster,
+  'summary' => $summary,
+  'personImage' => $personImage,
+  'personBio' => $personBio,
 	]);
   else
     return view('welcome', [
