@@ -90,11 +90,24 @@ $randomActor = $actors->get($randomNumber2);
   }
 
   public function getSearch(Request $request) {
-  $movies = Movie::where('Title', 'LIKE', "%" . $request->keywords . "%")->get();
-
-   return response()->json($movies);
+  $movies = Movie::with('directors')->with('actors')->where('Title', 'LIKE', "%" . $request->keywords . "%")->limit(5)->get();
+  $posterurl = 'https://image.tmdb.org/t/p/w500';
+  foreach($movies as $movie) {
+  $data = $this->grabAPI("https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" . urlencode($movie->Title) . "");
+  $posters[] = $posterurl . $data['results'][0]['poster_path'];
+  }
+  return response()->json(array(
+    'movies' => $movies,
+    'posters' => $posters,
+  ));
   }
 
+  public function getPosters($title) {
+    $data = $this->grabAPI("https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" . urlencode($title) . "");
+    $posters = $data['results'][0]['poster_path'];
+
+    return response()->json($posters);
+  }
 	public function all() {
 		$movies = Movie::orderBy('title', 'asc')->get();
 		return view('movies.index', compact('movies'));

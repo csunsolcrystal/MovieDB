@@ -1737,8 +1737,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         return _this.results = response.data;
       })["catch"](function (error) {});
-    },
-    fetchPoster: function fetchPoster() {// TODO: fetch from 3rd-party API using keywords
     }
   }
 });
@@ -37039,72 +37037,90 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.keywords,
-          expression: "keywords"
-        }
-      ],
-      staticClass: "form-control pr-5",
-      attrs: {
-        type: "text",
-        id: "inlineFormInputGroup",
-        placeholder: "Search"
-      },
-      domProps: { value: _vm.keywords },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
+  return _c(
+    "div",
+    [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.keywords,
+            expression: "keywords"
           }
-          _vm.keywords = $event.target.value
+        ],
+        staticClass: "form-control pr-5",
+        attrs: {
+          type: "text",
+          id: "inlineFormInputGroup",
+          placeholder: "Search"
+        },
+        domProps: { value: _vm.keywords },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.keywords = $event.target.value
+          }
         }
-      }
-    }),
-    _vm._v(" "),
-    _vm.results.length > 0 && _vm.keywords.length > 2
-      ? _c(
-          "div",
-          { staticClass: "list-group mt-3" },
-          _vm._l(_vm.results.slice(0, 5), function(result) {
-            return _c(
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.results.movies, function(result, index) {
+        return _vm.results.movies.length > 0 && _vm.keywords.length > 2
+          ? _c(
               "a",
               {
-                staticClass:
-                  "list-group-item list-group-item-action flex-column align-items-start",
+                staticClass: "card-link",
                 attrs: { href: /movies/ + result.MovieID }
               },
               [
-                _c(
-                  "div",
-                  { staticClass: "d-flex w-100 justify-content-between" },
-                  [
-                    _c("h5", { staticClass: "mb-2 h5" }, [
-                      _vm._v(_vm._s(result.Title))
-                    ]),
-                    _vm._v(" "),
-                    _c("small", [_vm._v("3 days ago")])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("p", { staticClass: "mb-2" }, [
-                  _vm._v(
-                    "Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius\n      blandit."
+                _c("article", { staticClass: "blog-card" }, [
+                  _vm.results.movies.length > 0 &&
+                  _vm.results.posters.length > 0
+                    ? _c("img", {
+                        staticClass: "post-image",
+                        attrs: { src: _vm.results.posters[index] }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "article-details" },
+                    [
+                      _c("h4", { staticClass: "post-category" }, [
+                        _vm._v(_vm._s(result.Title))
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(result.actors, function(actor) {
+                        return result.actors.length > 0
+                          ? _c("h3", { staticClass: "post-title" }, [
+                              _vm._v("Star: " + _vm._s(actor.Name))
+                            ])
+                          : _vm._e()
+                      }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "post-description" }, [
+                        _vm._v("desc")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "post-author" }, [
+                        _vm._v(
+                          "Directed by " +
+                            _vm._s(result.directors[0].DirectorName)
+                        )
+                      ])
+                    ],
+                    2
                   )
-                ]),
-                _vm._v(" "),
-                _c("small", [_vm._v("Donec id elit non mi porta.")])
+                ])
               ]
             )
-          }),
-          0
-        )
-      : _vm._e()
-  ])
+          : _vm._e()
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

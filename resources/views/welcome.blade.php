@@ -44,8 +44,8 @@
 					</div>
 			  </li>
           <li class="nav-item mx-2"> <a class="nav-link" href="#">Actors</a> </li>
-          <li class="nav-item mx-2"> <a class="nav-link navbar-brand mr-0 text-primary" href="#"><i class="fas fa-film"></i>
-              <b> MovieDB</b></a> </li>
+          <li class="nav-item mx-2"> <a class="nav-link navbar-brand mr-0 text-primary" href="#"><i class="fas fa-film" style="color: #212529;"></i>
+              <b style="color: #212529;"> MovieDB</b></a> </li>
           <li class="nav-item mx-2"> <a class="nav-link" href="#">Directors</a> </li>
           <li class="nav-item mx-2"> <a class="nav-link" href="#">About us </a> </li>
         </ul>

@@ -1,17 +1,17 @@
 <template>
     <div>
         <input type="text" class="form-control pr-5" id="inlineFormInputGroup" v-model="keywords" placeholder="Search">
-        <div class="list-group mt-3" v-if="results.length > 0 && keywords.length > 2">
-  <a :href="/movies/+ result.MovieID" class="list-group-item list-group-item-action flex-column align-items-start" v-for="result in results.slice(0,5)">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-2 h5">{{ result.Title }}</h5>
-      <small>3 days ago</small>
-    </div>
-    <p class="mb-2">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-      blandit.</p>
-    <small>Donec id elit non mi porta.</small>
-  </a>
-</div>
+          <a class="card-link" :href="/movies/+ result.MovieID" v-if="results.movies.length > 0 && keywords.length > 2" v-for="(result, index) in results.movies">
+            <article class="blog-card">
+              <img class="post-image" v-if="results.movies.length > 0 && results.posters.length > 0" :src=results.posters[index]>
+              <div class="article-details">
+                <h4 class="post-category">{{ result.Title }}</h4>
+                <h3 class="post-title" v-if="result.actors.length > 0" v-for="actor in result.actors">Star: {{ actor.Name }}</h3>
+                <p class="post-description">desc</p>
+                <p class="post-author">Directed by {{ result.directors[0].DirectorName }}</p>
+              </div>
+            </article>
+          </a>
     </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     data() {
         return {
             keywords: null,
-            results: []
+            results: [],
         };
     },
 
@@ -35,9 +35,6 @@ export default {
             axios.get('/api/search', { params: { keywords: this.keywords } })
                 .then(response => this.results = response.data)
                 .catch(error => {});
-        },
-        fetchPoster() {
-            // TODO: fetch from 3rd-party API using keywords
         },
     }
 }
