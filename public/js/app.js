@@ -1714,6 +1714,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37077,10 +37079,14 @@ var render = function() {
               [
                 _c("article", { staticClass: "blog-card" }, [
                   _vm.results.movies.length > 0 &&
-                  _vm.results.posters.length > 0
+                  _vm.results.extraData.length > 0
                     ? _c("img", {
                         staticClass: "post-image",
-                        attrs: { src: _vm.results.posters[index] }
+                        attrs: {
+                          src: _vm.results.posterUrl.concat(
+                            _vm.results.extraData[index].poster_path
+                          )
+                        }
                       })
                     : _vm._e(),
                   _vm._v(" "),
@@ -37092,16 +37098,28 @@ var render = function() {
                         _vm._v(_vm._s(result.Title))
                       ]),
                       _vm._v(" "),
+                      result.actors.length > 1
+                        ? _c("h3", { staticClass: "post-title" }, [
+                            _vm._v("Stars:")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      result.actors.length == 1
+                        ? _c("h3", { staticClass: "post-title" }, [
+                            _vm._v("Star:")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _vm._l(result.actors, function(actor) {
                         return result.actors.length > 0
                           ? _c("h3", { staticClass: "post-title" }, [
-                              _vm._v("Star: " + _vm._s(actor.Name))
+                              _vm._v(_vm._s(actor.Name))
                             ])
                           : _vm._e()
                       }),
                       _vm._v(" "),
                       _c("p", { staticClass: "post-description" }, [
-                        _vm._v("desc")
+                        _vm._v(_vm._s(_vm.results.extraData[index].overview))
                       ]),
                       _vm._v(" "),
                       _c("p", { staticClass: "post-author" }, [

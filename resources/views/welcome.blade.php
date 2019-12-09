@@ -5,13 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ config('app.name', 'MovieDB') }}</title>
 
   <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous" style=""></script>
   <script src="{{ asset('js/app.js') }}" defer></script>
 
   <!-- Fonts -->
@@ -30,7 +31,7 @@
           <li class="nav-item dropdown">
 			  <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Movies</a>
 			  <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
-				  <a class="dropdown-item" href="/movies">
+				  <a class="dropdown-item" href="/movies/all">
 						All
 					</a>
 
@@ -150,6 +151,14 @@
                 <br>Known for: @foreach ($randomActor->movies as $movie) @if ($loop->last) {{ $movie->Title }} ({{ $movie->YearReleased }}) @else {{ $movie->Title }} ({{ $movie->YearReleased }}), @endif @endforeach <br>
                 <br>{{ $personBio }}</p>
             </div>
+            <hr class="shadow-sm mb-2">
+            <h3 class="text-center mt-2 mb-2" >Featured Director</h3>
+            <div class="col d-inline-flex">
+              <img class="d-block img-fluid align-items-center" style="margin-top: 2ex; width: 200px; height: 100%;" src="https://image.tmdb.org/t/p/w500{{ $directorImage }}">
+              <p class="ml-2 mt-3" style="">{{ $randomDirector->DirectorName }} <br>Born:&nbsp;{{ $randomDirector->DirectorDOB }}
+                <br>Known for: @foreach ($randomDirector->movies as $movie) @if ($loop->last) {{ $movie->Title }} ({{ $movie->YearReleased }}) @else {{ $movie->Title }} ({{ $movie->YearReleased }}), @endif @endforeach <br>
+                <br>{{ $directorBio }}</p>
+            </div>
           </div>
           <div class="col-md-6 border-left mb-2">
             <div class="row">
@@ -178,7 +187,6 @@
           </div>
           <div class="row">
             <div class="col-md-12">
-              <hr class="shadow-sm">
               <div class="py-3">
                 <div class="container">
                   <div class="row">
@@ -232,9 +240,6 @@
           </div>
         </div>
       </div>
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous" style=""></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous" style=""></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" style=""></script>
     </div>
   </div>
 </body>

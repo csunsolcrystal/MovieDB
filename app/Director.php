@@ -9,8 +9,8 @@ class Director extends Model
 {
 	protected $table = 'directors';
     protected $primaryKey = 'id';
-	
+
     public function movies() {
-		return $this->belongsToMany('App\Movie', 'director_movie', 'MovieID', 'DirectorID');
+		return $this->belongsToMany('App\Movie', 'director_movie', 'DirectorID', 'MovieID');
     }
 }

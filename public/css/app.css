@@ -10648,42 +10648,59 @@ a.text-dark:focus {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
-@media (max-width: 40rem) {
-   .blog-card {
-     grid-template-columns: auto;
-     grid-template-rows: 12rem 1fr;
-   }
- }
-  @media (max-width: 40rem) {
-  .blog-card {
-    flex-wrap: wrap;
-  }
+
+.blog-card {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  box-shadow: 0 0.1875rem 1.5rem rgba(0, 0, 0, 0.2);
+  border-radius: 0.375rem;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  overflow: hidden;
 }
+
 .card-link {
   position: relative;
   display: block;
-  color: inherit;
+  color: #121212;
   text-decoration: none;
-  &:hover .post-title {
-    @include transition(color 0.3s ease);
-    color: $red;
-  }
-  &:hover .post-image {
-    @include transition(opacity 0.3s ease);
-    opacity: 0.9;
+}
+
+.card-link:hover .post-title {
+  transition: color 0.3s ease;
+  color: #e04f62;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-link:hover .post-title {
+    transition: none;
   }
 }
 
-#container {
-  width: 30rem;
-  height: 13.625rem;
+.card-link:hover .post-image {
+  transition: opacity 0.3s ease;
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-link:hover .post-image {
+    transition: none;
+  }
 }
 
 .post-image {
-  @include transition(opacity 0.3s ease);
+  transition: opacity 0.3s ease;
   display: block;
   width: 120px;
-    object-fit: fill;
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-image {
+    transition: none;
+  }
 }
 
 .article-details {
@@ -10699,16 +10716,22 @@ a.text-dark:focus {
   letter-spacing: 0.0625rem;
   margin: 0 0 0.75rem 0;
   padding: 0 0 0.25rem 0;
-  border-bottom: 0.125rem solid $border;
+  border-bottom: 0.125rem solid #ebebeb;
 }
 
 .post-title {
-  @include transition(color 0.3s ease);
+  transition: color 0.3s ease;
   font-size: 1.125rem;
   line-height: 1.4;
-  color: $black;
+  color: #121212;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-title {
+    transition: none;
+  }
 }
 
 .post-author {
@@ -10716,15 +10739,17 @@ a.text-dark:focus {
   line-height: 1;
   margin: 1.125rem 0 0 0;
   padding: 1.125rem 0 0 0;
-  border-top: 0.0625rem solid $border;
+  border-top: 0.0625rem solid #ebebeb;
 }
-.blog-card {
-  display: flex;
-  flex-direction: row;
-  background: $white;
-  box-shadow: 0 0.1875rem 1.5rem $shadow;
-  border-radius: 0.375rem;
-  overflow: hidden;
-  margin-top: 50px;
-  margin-bottom: 50px;
+
+@media (max-width: 40rem) {
+  #container {
+    width: 18rem;
+    height: 27.25rem;
+  }
+
+  .blog-card {
+    flex-wrap: wrap;
+  }
 }
+

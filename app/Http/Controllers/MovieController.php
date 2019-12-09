@@ -18,6 +18,7 @@ class MovieController extends Controller
     {
 		$movies = Movie::with('awards')->get();
     $actors = Actor::with('movies')->get();
+    $directors = Director::with('movies')->get();
 
 		foreach($movies as $movie) {
 			foreach($movie->awards as $award) {
@@ -34,13 +35,15 @@ class MovieController extends Controller
 	}
 });
 
-// get random Movie & random actor
+// get random Movie & random actor, director
 if(sizeof($movies) > 0) {
 $randomNumber = rand(0, sizeof($movies)-1);
 $randomNumber2 = rand(0, sizeof($actors)-1);
+$randomNumber3 = rand(0, sizeof($directors)-1);
 
 $randomMovie = $movies->get($randomNumber);
 $randomActor = $actors->get($randomNumber2);
+$randomDirector = $directors->get($randomNumber3);
 }
 
 	$movies = array_slice($newmovies, 0, 10);
@@ -66,16 +69,28 @@ $randomActor = $actors->get($randomNumber2);
       $data = $this->grabAPI("https://api.themoviedb.org/3/person/". $personId ."?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&language=en-US");
       $personBio = $data['biography'];
 
+      // get basic random person info
+      $data = $this->grabAPI("https://api.themoviedb.org/3/search/person?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&language=en-US&page=1&include_adult=false&query=" . urlencode($randomDirector->DirectorName) . "");
+      $directorImage = $data['results'][0]['profile_path'];
+      $directorId = $data['results'][0]['id'];
+
+      // advanced person info
+      $data = $this->grabAPI("https://api.themoviedb.org/3/person/". $directorId ."?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&language=en-US");
+      $directorBio = $data['biography'];
+
   if(sizeof($movies) > 0)
   return view('welcome', [
 	'movies' => $movies,
 	'randomMovie' => $randomMovie,
   'randomActor' => $randomActor,
+  'randomDirector' => $randomDirector,
   'posterImages' => $posterImages,
   'randomMoviePoster' => $randomMoviePoster,
   'summary' => $summary,
   'personImage' => $personImage,
   'personBio' => $personBio,
+  'directorImage' => $directorImage,
+  'directorBio' => $directorBio,
 	]);
   else
     return view('welcome', [
@@ -90,15 +105,16 @@ $randomActor = $actors->get($randomNumber2);
   }
 
   public function getSearch(Request $request) {
-  $movies = Movie::with('directors')->with('actors')->where('Title', 'LIKE', "%" . $request->keywords . "%")->limit(5)->get();
+  $movies = Movie::with('directors')->with('actors')->where('Title', 'LIKE', '%'.$request->keywords.'%')->limit(5)->get();
   $posterurl = 'https://image.tmdb.org/t/p/w500';
   foreach($movies as $movie) {
   $data = $this->grabAPI("https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" . urlencode($movie->Title) . "");
-  $posters[] = $posterurl . $data['results'][0]['poster_path'];
+  $extraData[] = $data['results'][0];
   }
   return response()->json(array(
     'movies' => $movies,
-    'posters' => $posters,
+    'extraData' => $extraData,
+    'posterUrl' => $posterurl,
   ));
   }
 
