@@ -1719,17 +1719,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      keywords: null,
-      results: []
+      keywords: '',
+      results: [],
+      isTyping: false
     };
   },
   watch: {
-    keywords: function keywords(after, before) {
-      this.fetch();
+    keywords: _.debounce(function () {
+      this.isTyping = false;
+    }, 1000),
+    isTyping: function isTyping(value) {
+      if (!value) {
+        this.searchUser(this.keywords);
+      }
     }
   },
   methods: {
-    fetch: function fetch() {
+    searchUser: function searchUser(keywords) {
       var _this = this;
 
       axios.get('/api/search', {
@@ -1737,8 +1743,8 @@ __webpack_require__.r(__webpack_exports__);
           keywords: this.keywords
         }
       }).then(function (response) {
-        return _this.results = response.data;
-      })["catch"](function (error) {});
+        _this.results = response.data;
+      });
     }
   }
 });
@@ -37046,9 +37052,10 @@ var render = function() {
         directives: [
           {
             name: "model",
-            rawName: "v-model",
+            rawName: "v-model.trim",
             value: _vm.keywords,
-            expression: "keywords"
+            expression: "keywords",
+            modifiers: { trim: true }
           }
         ],
         staticClass: "form-control pr-5",
@@ -37059,11 +37066,19 @@ var render = function() {
         },
         domProps: { value: _vm.keywords },
         on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          input: [
+            function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.keywords = $event.target.value.trim()
+            },
+            function($event) {
+              _vm.isTyping = true
             }
-            _vm.keywords = $event.target.value
+          ],
+          blur: function($event) {
+            return _vm.$forceUpdate()
           }
         }
       }),

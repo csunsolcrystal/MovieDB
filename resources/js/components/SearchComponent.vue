@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input type="text" class="form-control pr-5" id="inlineFormInputGroup" v-model="keywords" placeholder="Search">
+        <input type="text" class="form-control pr-5" id="inlineFormInputGroup" @input="isTyping = true" v-model.trim="keywords" placeholder="Search">
           <a class="card-link" :href="/movies/+ result.MovieID" v-if="results.movies.length > 0 && keywords.length > 2" v-for="(result, index) in results.movies">
             <article class="blog-card">
               <img class="post-image" v-if="results.movies.length > 0 && results.extraData.length > 0" :src=results.posterUrl.concat(results.extraData[index].poster_path)>
@@ -21,22 +21,28 @@
 export default {
     data() {
         return {
-            keywords: null,
+            keywords: '',
             results: [],
+            isTyping: false,
         };
     },
 
     watch: {
-        keywords(after, before) {
-            this.fetch();
+      keywords: _.debounce(function() {
+        this.isTyping = false;
+      }, 1000),
+      isTyping: function(value) {
+        if (!value) {
+          this.searchUser(this.keywords);
         }
+      }
     },
-
     methods: {
-        fetch() {
-            axios.get('/api/search', { params: { keywords: this.keywords } })
-                .then(response => this.results = response.data)
-                .catch(error => {});
+      searchUser: function(keywords) {
+        axios.get('/api/search', { params: { keywords: this.keywords } })
+          .then(response => {
+            this.results = response.data;
+          });
         },
     }
 }
