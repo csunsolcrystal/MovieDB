@@ -111,18 +111,18 @@ $randomDirector = $directors->get($randomNumber3);
   $data = $this->grabAPI("https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" . urlencode($movie->Title) . "");
   $extraData[] = $data['results'][0];
   }
-  return \response()->json(array(
+  return response()->json([
     'movies' => $movies,
     'extraData' => $extraData,
     'posterUrl' => $posterurl,
-  ));
+  ]);
   }
 
   public function getPosters($title) {
     $data = $this->grabAPI("https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" . urlencode($title) . "");
     $posters = $data['results'][0]['poster_path'];
 
-    return \response()->json($posters);
+    return response()->json($posters);
   }
 	public function all() {
 		$movies = Movie::orderBy('title', 'asc')->get();
