@@ -107,6 +107,7 @@ $randomDirector = $directors->get($randomNumber3);
   public function getSearch(Request $request) {
   $movies = Movie::with('directors')->with('actors')->where('Title', 'LIKE', '%'.$request->keywords.'%')->limit(5)->get();
   $posterurl = 'https://image.tmdb.org/t/p/w500';
+  $extraData[] = [];
   foreach($movies as $movie) {
   $data = $this->grabAPI("https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=" . urlencode($movie->Title) . "");
   $extraData[] = $data['results'][0];
